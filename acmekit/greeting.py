@@ -1,3 +1,7 @@
+"""markdown
+
+"greet_all(names, formal=False)" returns a list of greetings, one per name.
+"""
 def greet(name: str, formal: bool = False) -> str:
     """Return a greeting for the given name."""
     if formal:
