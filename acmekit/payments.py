@@ -27,3 +27,14 @@ def apply_discount(amount_cents: int, percent: int) -> int:
         raise ValueError("amount_cents must be positive")
     discount = amount_cents * percent // 100
     return amount_cents - discount
+
+
+def charge_with_retry(amount_cents: int, attempts: int = 3) -> dict:
+    """Try to charge up to `attempts` times, then give up."""
+    last_error = None
+    for _ in range(attempts):
+        try:
+            return charge(amount_cents)
+        except ValueError as error:
+            last_error = error
+    raise RuntimeError("charge failed after retries") from last_error
